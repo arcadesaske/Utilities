@@ -103,6 +103,11 @@ def clean_show_filename(filename):
 
 def clean_movie_filename(filename):
     name, ext = os.path.splitext(filename)
+
+    # Se il file ha un pattern da episodio (SxxEyy o 1x01), non è un film
+    if PATTERN_EPISODE_NUM.search(name):
+        return None
+
     match = PATTERN_MOVIE.match(name)
     if not match:
         return None
